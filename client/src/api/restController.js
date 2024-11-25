@@ -1,7 +1,10 @@
 import axios from 'axios';
 import pLimit from 'p-limit';
 
+const server_address='http://localhost:5222/api/';
+
 const sendRequests = async (requestsPerSecond, callback, onError) => {
+
   const totalRequests = 1000;
   let requestIndex = 1;
   const limit = pLimit(requestsPerSecond);
@@ -14,7 +17,7 @@ const sendRequests = async (requestsPerSecond, callback, onError) => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5222/api/',
+        server_address,
         { index: requestIndex },
         { signal: abortController.signal }
       );
@@ -27,12 +30,11 @@ const sendRequests = async (requestsPerSecond, callback, onError) => {
         abortController.abort();
       } else {
         console.error('Error:', error.message);
-        onError(error.message); // Обработка других ошибок
+        onError(error.message);
       }
     }
   };
-
-  // Инициируем запросы
+ 
   for (let i = 0; i < totalRequests; i++) {
     limit(() => sendRequest());
   }

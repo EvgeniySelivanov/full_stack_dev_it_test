@@ -11,16 +11,19 @@ setInterval(() => {
 
 const rateLimiter = (req, res, next) => {
   const ip = req.ip;
+
   if (!requestCounts[ip]) {
     requestCounts[ip] = 0;
   }
+
   console.log('requestCounts', requestCounts);
-  // Проверяем, превышен ли лимит запросов
+
   if (requestCounts[ip] >= maxRequestsPerSecond) {
     return res
       .status(429)
       .json({ error: 'Too many requests, please try again later' });
   }
+
   requestCounts[ip]++;
   next();
 };

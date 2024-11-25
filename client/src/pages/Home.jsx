@@ -48,7 +48,7 @@ const Home = () => {
 
   return (
     <Stack>
-      <h1 style={{ textAlign: 'center' }}>Enter request quantity</h1>
+      <h1 style={{ textAlign: 'center' }}>Еnter the number of requests</h1>
       <Box sx={{ margin: '50px auto' }}>
         <TextField
           sx={{ width: '300px' }}
