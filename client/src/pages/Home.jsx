@@ -14,6 +14,7 @@ const Home = () => {
   const handleChange = (e) => {
     setQuantity(e.target.value);
     setError('');
+    setResults([])
   };
 
   const handleSubmit = async () => {
@@ -33,7 +34,7 @@ const Home = () => {
 
     try {
       await sendRequests(number, (index) => {
-        setResults((prevResults) => [...prevResults, index]);
+        setResults((prevResults) => [index,...prevResults]);
         setRemainingRequests((prevRemaining) => prevRemaining - 1);
       },
       (errorMessage) => {
@@ -75,7 +76,7 @@ const Home = () => {
         variant="contained"
         sx={{ maxWidth: '300px', margin: 'auto' }}
         onClick={handleSubmit}
-        disabled={ remainingRequests > 0}
+        disabled={remainingRequests > 0}
       >
         {remainingRequests > 0 ? 'Sending...':'Start'}
       </Button>
