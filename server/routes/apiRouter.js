@@ -1,8 +1,9 @@
 const { Router } = require('express');
-const ApiController = require('../controllers/api.controller');
+const validateIndex = require('../middlewares/validateIndex.mw');
 const rateLimiter = require('../middlewares/api.mw');
+const ApiController = require('../controllers/api.controller');
 const apiRouter = Router();
 
-apiRouter.post('/', rateLimiter, ApiController);
+apiRouter.post('/',validateIndex, rateLimiter, ApiController);
 
 module.exports = apiRouter;
